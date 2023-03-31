@@ -1,0 +1,243 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+   <div id="page" class="page">
+
+      {% include "base/header.html" %}
+
+      <main id="content" class="site-main">
+         <section class="package-inner-page">
+            <!-- ***Inner Banner html start form here*** -->
+            <div class="inner-banner-wrap">
+               <div class="inner-baner-container" style="background-image: url({% static 'assets/images/img7.jpg' %});">
+                  <div class="container">
+                     <div class="inner-banner-content">
+                        <h1 class="page-title">{{ package.title }}</h1>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- ***Inner Banner html end here*** -->
+            <!-- ***career section html start form here*** -->
+            <div class="inner-package-detail-wrap">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-lg-8 primary right-sidebar">
+                        <div class="single-packge-wrap">
+                           <div class="single-package-head d-flex align-items-center">
+                              <div class="package-title">
+                                 <h2>{{ package.title }}</h2>
+                                 <div class="rating-start-wrap">
+                                    <div class="rating-start">
+                                       <span style="width: {{ package.raiting }}%"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="package-price">
+                                 <h6 class="price-list">
+                                    {% if package.activate_promo %}
+                                    <del style="font-size: 17px;">${{ package.price_per_person }}</del>
+                                    <span>${{ package.price_promo }}</span>
+                                    / per person
+                                    {% else %}
+                                    <span>${{ package.price_per_person }}</span>
+                                    / per person
+                                    {% endif %}
+                                 </h6>
+                              </div>
+                           </div>
+                           <div class="package-meta">
+                              <ul>
+                                 <li>
+                                    <i class="fas fa-clock"></i>
+                                    {{ package.days }}D/{{ package.nights }}N
+                                 </li>
+                                 <li>
+                                    <i class="fas fa-user-friends"></i>
+                                    pax: {{ package.max_person }}
+                                 </li>
+                                 <li>
+                                    <i class="fas fa-swimmer"></i>
+                                    Category : {{ package.category }}
+                                 </li>
+
+                                 <li>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    {{ package.travel_country }}
+                                 </li>
+                              </ul>
+                           </div>
+                           <figure class="single-package-image">
+                              <img src="{{ package.image.url }}" alt="">
+                           </figure>
+                           <div class="package-content-detail">
+                              <article class="package-overview">
+                                 <h3>ОБЗОР    :</h3>
+                                 <p>{{ package.overview }}</p>
+                              </article>
+                              <article class="package-include bg-light-grey">
+                                 <h3>ВКЛЮЧЕНИЯ & ИСКЛЮЧЕНИЯ :</h3>
+                                 <ul style="display: contents;">
+                                    {% for include in package.include.all %}
+                                    <li><i class="fas fa-check"></i>{{ include.title }}</li>
+                                    {% endfor %}
+                                    
+                                    {% for exclude in package.exclude.all %}
+                                    <li><i class="fas fa-times"></i>{{ exclude.title }}</li>
+                                    {% endfor %}
+                                 </ul>
+                              </article>
+                              <article class="package-ininerary">
+                                 <h3>МАРШРУТ :</h3>
+                                 <p>{{ package.itinerary_desc }}</p>
+                                 <ul>
+                                    {% for inin in package.itinerary.all %}
+                                    <li>
+                                       <i aria-hidden="true" class="fas fa-dot-circle"></i>
+                                       {{ inin.title }}
+                                    </li>
+                                    {% endfor %}
+                                 </ul>
+                              </article>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-4">
+                        <div class="sidebar">
+                           <div class="booking-form-wrap">
+                              <div class="booking-form-inner primary-bg">
+                                 <h3>BOOKING FORM</h3>
+                                 <p>Malesuada incidunt excepturi proident quo eros? Sinterdum praesent magnis, eius cumque.</p>
+                                 <form action="{% url 'add_booking_page' package.id %}" method="post" class="booking-form">
+                                    {% csrf_token %}
+                                    <p>
+                                       <input type="text" name="name" placeholder="Your Name...">
+                                    </p>
+                                    <p>
+                                       <input type="email" name="email" placeholder="Your Email...">
+                                    </p>
+                                    <p class="width-5">
+                                       <label>Checkin Date</label>
+                                       <input class="input-date-picker" type="text" name="checkin_date" placeholder="DD / MM / YY" autocomplete="off">
+                                    </p>
+                                    <p class="width-5">
+                                       <label>Checkout Date</label>
+                                       <input class="input-date-picker" type="text" name="checkout_date" placeholder="MM / DD / YY" autocomplete="off" readonly="readonly">
+                                    </p>
+                                    <p>
+                                       <button type="submit" name="submit" class="outline-btn outline-btn-white">INQUIRY NOW</button>
+                                    </p>
+                                 </form>
+                              </div>
+                           </div>
+                           <div class="related-package">
+                              <h3>RELATED IMAGES</h3>
+                              <p>Quaerat inventore! Vestibulum aenean volutpat gravida. Sagittis, euismod perferendis.</p>
+                              <div class="related-package-slide">
+                                 <div class="related-package-item">
+                                    <img src="assets/images/img1.jpg" alt="">
+                                 </div>
+                                 <div class="related-package-item">
+                                    <img src="assets/images/img2.jpg" alt="">
+                                 </div>
+                                 <div class="related-package-item">
+                                    <img src="assets/images/img3.jpg" alt="">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="package-list">
+                              <div class="overlay"></div>
+                              <h4>MORE PACKAGES</h4>
+                              <ul>
+                                 <li>
+                                    <a href="#"><i aria-hidden="true" class="icon icon-arrow-right-circle"></i>Vacation Packages</a>
+                                 </li>
+                                 <li>
+                                    <a href="#"><i aria-hidden="true" class="icon icon-arrow-right-circle"></i>Homeymoon Packages</a>
+                                 </li>
+                                 <li>
+                                    <a href="#"><i aria-hidden="true" class="icon icon-arrow-right-circle"></i>New Year Packages</a>
+                                 </li>
+                                 <li>
+                                    <a href="#"><i aria-hidden="true" class="icon icon-arrow-right-circle"></i>Weekend Packages</a>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- ***career section html start form here*** -->
+         </section>
+      </main>
+           
+      {% include "base/footer.html" %}
+
+      {% include "home/blocks/search-form.html" %}
+
+      <!-- ***custom top bar offcanvas html*** -->
+      <div id="offCanvas" class="offcanvas-container">
+         <div class="offcanvas-inner">
+            <div class="offcanvas-sidebar">
+               <aside class="widget author_widget">
+                  <h3 class="widget-title">OUR PROPRIETOR</h3>
+                  <div class="widget-content text-center"> 
+                     <div class="profile"> 
+                        <figure class="avatar"> 
+                           <img src="assets/images/img21.jpg" alt=""> 
+                        </figure> 
+                        <div class="text-content"> 
+                           <div class="name-title"> 
+                              <h4> James Watson</h4> 
+                           </div> 
+                           <p>Accumsan? Aliquet nobis doloremque, aliqua? Inceptos voluptatem, duis tempore optio quae animi viverra distinctio cumque vivamus, earum congue, anim velit</p> 
+                        </div> 
+                        <div class="socialgroup"> 
+                           <ul> 
+                              <li> <a target="_blank" href="#"> <i class="fab fa-facebook"></i> </a> </li> 
+                              <li> <a target="_blank" href="#"> <i class="fab fa-google"></i> </a> </li> 
+                              <li> <a target="_blank" href="#"> <i class="fab fa-twitter"></i> </a> </li> 
+                              <li> <a target="_blank" href="#"> <i class="fab fa-instagram"></i> </a> </li> 
+                              <li> <a target="_blank" href="#"> <i class="fab fa-pinterest"></i> </a> </li> 
+                           </ul> 
+                        </div> 
+                     </div> 
+                  </div>
+               </aside>
+               <aside class="widget widget_text text-center">
+                  <h3 class="widget-title">CONTACT US</h3>
+                  <div class="textwidget widget-text">
+                     <p>Feel free to contact and<br/> reach us !!</p>
+                     <ul>
+                        <li>
+                           <a href="tel:+01988256203">
+                              <i aria-hidden="true" class="icon icon-phone1"></i>
+                              +01(988) 256 203
+                           </a>
+                        </li>
+                        <li>
+                           <a href="mailtop:info@domain.com">
+                              <i aria-hidden="true" class="icon icon-envelope1"></i>
+                              info@domain.com
+                           </a>
+                        </li>
+                        <li>
+                           <i aria-hidden="true" class="icon icon-map-marker1"></i>
+                           3146 Koontz, California
+                        </li>
+                     </ul>
+                  </div>
+               </aside>
+            </div>
+            <a href="#" class="offcanvas-close">
+               <i class="fas fa-times"></i>
+            </a>
+         </div>
+         <div class="overlay"></div>
+      </div>
+      <!-- ***custom top bar offcanvas html*** -->
+   </div>
+{% endblock content %}
+      
