@@ -8,4 +8,3 @@ class ContactMessageForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
         fields = ("first_name", "email", "comments")
-

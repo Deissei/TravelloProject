@@ -26,9 +26,31 @@
    <!-- Custom CSS -->
    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
    <title>{{ setting.title }}</title>
+
+   <style>
+      .blue-button {
+      background-color: #0080ff; /* Голубой цвет */
+      color: #ffffff; /* Белый цвет текста */
+      padding: 10px 20px; /* Отступы внутри кнопки */
+      margin-bottom: 10px; /* Отступ снизу */
+      border: none; /* Убираем границу кнопки */
+      border-radius: 25px; /* Закругляем углы кнопки */
+      margin-left: 50px;
+   }
+
+   .blue-button:hover {
+      background-color: #0066cc; /* Изменение цвета при наведении курсора */
+   }
+   </style>
+
 </head>
 <body class="home">
 
+   <div id="siteLoader" class="site-loader">
+      <div class="preloader-content">
+         <img src="{% static 'assets/images/loader1.gif' %}" alt="">
+      </div>
+   </div>
 
     {% block content %}
     {% endblock content %}

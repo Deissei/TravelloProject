@@ -1,8 +1,24 @@
 from django.db import models
 from django.core.validators import MaxLengthValidator
 
+from apps.destinations.models import Destination
 
 from django.urls import reverse
+
+
+class Country(models.Model):
+    title = models.CharField(
+        max_length=256,
+        verbose_name="Название",
+    )
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = "Страну"
+        verbose_name_plural = "Страны"
+
 
 class CategoryPackage(models.Model):
     title = models.CharField("Название категории", max_length=100)
@@ -84,7 +100,21 @@ class Package(models.Model):
     activate_promo = models.BooleanField("Активация акции", default=False)
 
     category = models.ForeignKey(CategoryPackage, on_delete=models.SET_DEFAULT, default=None, verbose_name="Категории")
-    travel_country = models.CharField("Страна поездки", max_length=50)
+    travel_country = models.CharField("Страна поездки", max_length=50, null=True, blank=True)
+    country = models.ForeignKey(
+        Country,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
+
+    destination = models.ForeignKey(
+        Destination,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name='Пункт названачения'
+    )
 
     image = models.ImageField("Фото", upload_to='package/')
     overview = models.TextField("Обзор", max_length=1000)

@@ -1,5 +1,12 @@
 from django.contrib import admin
-from .models import CategoryPackage, IncludePackage, ExcludePackage, ItineraryPackage, Package
+
+from .models import (CategoryPackage, Country, ExcludePackage, IncludePackage,
+                     ItineraryPackage, Package)
+
+
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ['title']
 
 
 @admin.register(CategoryPackage)

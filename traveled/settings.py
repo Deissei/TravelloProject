@@ -13,8 +13,7 @@ SECRET_KEY = 'django-insecure-!ujdp3^c+q-(ka6z^xv!hqfr5u0(n=bqm0@uq^gq!bi)esjh7%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -28,11 +27,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # user
     'apps.myuser',
 
     # apps
     'apps.homepage',
+    'apps.cartitems',
     'apps.packages',
     'apps.destinations',
     'apps.blogs',
@@ -125,7 +124,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_DIR = BASE_DIR / 'static'
-STATIC_ROOT = BASE_DIR / 'static'
+# STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [STATIC_DIR]
 
 MEDIA_URL = 'media/'

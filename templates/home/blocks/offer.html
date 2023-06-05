@@ -41,7 +41,7 @@
                            <a href="{{ package_promo.get_absolute_url }}">{{ package_promo.title }}</a>
                         </h3>
                         <p>
-                           {{ package_promo.overview }}
+                           {{ package_promo.overview|truncatewords:5 }}
                         </p>
                         <div class="price-list">
                            price: 
@@ -56,7 +56,7 @@
 
           </div>
           <div class="section-btn-wrap text-center">
-             <a href="{% url 'list_packages' %}" class="round-btn">ПОСМОТРЕТЬ ВСЕ ПАКЕТЫ</a>
+             <a href="{% url 'package-promo' %}" class="round-btn">ПОСМОТРЕТЬ ВСЕ ПАКЕТЫ</a>
           </div>
        </div>
     </div>
