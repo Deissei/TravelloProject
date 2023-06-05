@@ -12,6 +12,7 @@ urlpatterns = [
     path('', include('apps.blogs.urls')),
     path('', include('apps.contacts.urls')),
     path('', include('apps.myuser.urls')),
+    path('', include('apps.cartitems.urls')),
     path('', include('apps.aboutpage.urls')),
     path('', include('apps.booking.urls')),
     path('', include('api.urls')),

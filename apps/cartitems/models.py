@@ -7,6 +7,9 @@ User = get_user_model()
 
 
 class CartItem(models.Model):
+    def subtotal(self, quantity:int, price:int):
+        return quantity * price
+    
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -22,3 +25,9 @@ class CartItem(models.Model):
     quantity = models.PositiveSmallIntegerField(
         verbose_name="Количество",
     )
+
+    @property
+    def total_price(self):
+        return self.subtotal(self.quantity, self.package.price_per_person)
+
+

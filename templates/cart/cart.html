@@ -21,6 +21,7 @@
             <div class="cart-list-inner">
                <div class="container">
                   <form method="get" action="#">
+                     {% csrf_token %}
                      <div class="table-responsive">
                         <table class="table">
                            <thead>
@@ -32,22 +33,22 @@
                                  <th>Sub Total</th>
                               </tr>
                            </thead>
-                           {% for cart in carts.toor_package.all %}
+                           {% for cart in cart_items %}
                            <tr>
                               <td class="">
                                  <button class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                 <span class="cartImage"><img src="{{ cart.image.url }}" alt="image"></span>
+                                 <span class="cartImage"><img src="{{ cart.package.image.url }}" alt="image"></span>
                               </td>
-                              <td data-column="Product Name">{{ cart.title }}</td>
-                              <td data-column="Price" class="price_per_person" id="price_per_person">$ {{ cart.price_per_person }}</td>
+                              <td data-column="Product Name">{{ cart.package.title }}</td>
+                              <td data-column="Price" class="price_per_person" id="price_per_person">$ {{ cart.package.price_per_person }}</td>
                               <td data-column="Quantity" class="count-input">
                                  <div>
                                     <a class="minus-btn" href="#"><i class="fa fa-minus"></i></a>
-                                    <input class="quantity" type="text" value="1" data-package-id="{{ cart.id }}" data-package-price="{{ cart.price_per_person }}">
+                                    <input class="quantity" type="text" value="{{ cart.quantity }}" data-package-id="{{ cart.package.id }}" data-package-price="{{ cart.package.price_per_person }}">
                                     <a class="plus-btn" href="#"><i class="fa fa-plus"></i></a>
                                  </div>
                               </td>
-                              <td data-column="Sub Total">$ {{ cart.price_per_person }}</td>
+                              <td data-column="Sub Total">$ {{ cart.total_price }}</td>
                            </tr>
                            {% endfor %}
                              
@@ -63,13 +64,11 @@
                      </div>
                      <div class="totalAmountArea">
                         <ul class="list-unstyled">
-                           <li><strong>Sub Total</strong> <span>$ 3600.00</span></li>
-                           <li><strong>Vat</strong> <span>$ 18.00</span></li>
-                           <li><strong>Grand Total</strong> <span class="grandTotal" id="totalAmount">$ 3680.00</span></li>
+                           <li><strong>Grand Total</strong> <span class="grandTotal" id="totalAmount">$ {{ total }}</span></li>
                         </ul>
                      </div>
                      <div class="checkBtnArea text-right">
-                        <button type="submit" class="round-btn">checkout</button>
+                        <a class="round-btn" href="/">checkout</a>
                      </div>
                   </form>
                </div>

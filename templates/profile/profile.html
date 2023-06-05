@@ -11,6 +11,11 @@
                       <div class="name-title"> 
                          <h4>Hello {{ user.first_name }}</h4> 
                       </div> 
+                      <div class="name-title"> 
+                         <a href="{% url 'cart_view' %}" style="border: 1px solid green; width: 55%; padding: 10px; margin-left: 70px; background-color: green;">
+                           <h4 style="margin: 0; color: white;">Корзина</h4>
+                         </a> 
+                      </div> 
                       <div>
                         <a href="{% url 'logout' %}" class="qwert"><h3 class="qwer">Выйти</h3></a>
                       </div>
