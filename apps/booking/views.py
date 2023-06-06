@@ -42,6 +42,17 @@ def bookingPackage(request):
     return render(request, "booking/booking.html", locals())
 
 
+def booking_add_package(request, pk):
+    if request.method == 'POST':
+        print(True)
+        form = BookingForm(request.POST)
+        cart_item = CartItem.objects.get(id=pk)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.cart_item = cart_item
+            form.save()
+            return redirect('finish_booking', cart_item.id)
+
 
 class BookingAddPackage(View):
     def post(self, request, pk):

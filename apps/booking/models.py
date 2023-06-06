@@ -1,7 +1,10 @@
 import random
 
 from django.db import models
+
 from apps.packages.models import Package
+from apps.cartitems.models import CartItem
+
 
 class Booking(models.Model):
     booking_id_save = ''
@@ -31,6 +34,13 @@ class Booking(models.Model):
     ccv = models.CharField("CCV", max_length=3)
 
     package = models.ForeignKey(Package, on_delete=models.CASCADE)
+    
+    # main models
+    cart_item = models.ManyToManyField(
+        CartItem,
+        related_name='cart_item_booking',
+        blank=True,
+    )
 
     @property
     def num_card(self):
