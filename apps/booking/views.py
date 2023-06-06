@@ -4,6 +4,7 @@ from django.views.generic import DetailView
 from django.contrib import messages
 
 from apps.packages.models import Package
+from apps.cartitems.models import CartItem
 
 from .models import Booking
 
@@ -21,12 +22,26 @@ class BookingPackage(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['setting'] = SettingMain.objects.get(active=True)
-        context['blogs'] = Blog.objects.all()[::-1][:2]
-        context['images'] = Gallery.objects.all()[2:8]
-        context['contacts'] = Contact.objects.get(id=1)
+        
         return context
+
+
+def bookingPackage(request):
+    carts = CartItem.objects.filter(user=request.user)
+
+    total = 0
     
+    for cart_item in carts:
+        total+=cart_item.total_price
+
+    # settings main
+    setting = SettingMain.objects.get(active=True)
+    blogs = Blog.objects.all()[::-1][:2]
+    images = Gallery.objects.all()[2:8]
+    contacts = Contact.objects.get(id=1)
+    return render(request, "booking/booking.html", locals())
+
+
 
 class BookingAddPackage(View):
     def post(self, request, pk):

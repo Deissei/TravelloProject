@@ -27,7 +27,7 @@
                      <div class="col-lg-8 right-sidebar">
                         <!-- step one form html start -->
                         <div class="booking-form-wrap">
-                           <form method="post" action="{% url 'add_booking' package.id %}">
+                           <form method="post" action="{% comment %}{% url 'add_booking' package.id %}{% endcomment %}">
                               {% csrf_token %}
                               <div class="booking-content">
                                  <div class="form-title">
@@ -148,19 +148,34 @@
                      <div class="col-lg-4">
                         <div class="price-table-summary">
                            <h4 class="bg-title">Сумма</h4>
+                           {% for cart in carts %}
                            <table>
                               <tbody>
                                  <tr>
                                     <td>
-                                       <strong>Стоимость пакета </strong>
+                                       {{ cart.package.title }} 
                                     </td>
                                     <td class="text-right">
-                                       ${{ package.price_per_person }}
+                                       ${{ cart.total_price }}
                                     </td>
                                  </tr>
                                  </tr>
                               </tbody>
                            </table>
+                           {% endfor %}
+                           <table>
+                              <tbody>
+                                 <tr>
+                                    <td>
+                                       <strong>Общий итог: </strong>
+                                    </td>
+                                    <td class="text-right">
+                                       <strong>${{ total }}</strong>
+                                    </td>
+                                 </tr>
+                                 </tr>
+                              </tbody>
+                           </table> 
                         </div>
                         <div class="widget-bg widget-support-wrap">
                            <div class="icon">

@@ -36,16 +36,16 @@
                            {% for cart in cart_items %}
                            <tr>
                               <td class="">
-                                 <button class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                 <a class="close" data-dismiss="alert" aria-label="Close" href="{% url 'remove_cart_item' cart.id %}"><span aria-hidden="true">×</span></a>
                                  <span class="cartImage"><img src="{{ cart.package.image.url }}" alt="image"></span>
                               </td>
                               <td data-column="Product Name">{{ cart.package.title }}</td>
                               <td data-column="Price" class="price_per_person" id="price_per_person">$ {{ cart.package.price_per_person }}</td>
                               <td data-column="Quantity" class="count-input">
                                  <div>
-                                    <a class="minus-btn" href="#"><i class="fa fa-minus"></i></a>
+                                    <a href="{% url 'minus_quantity' cart.id %}"><i class="fa fa-minus"></i></a>
                                     <input class="quantity" type="text" value="{{ cart.quantity }}" data-package-id="{{ cart.package.id }}" data-package-price="{{ cart.package.price_per_person }}">
-                                    <a class="plus-btn" href="#"><i class="fa fa-plus"></i></a>
+                                    <a href="{% url 'plus_quantity' cart.id %}"><i class="fa fa-plus"></i></a>
                                  </div>
                               </td>
                               <td data-column="Sub Total">$ {{ cart.total_price }}</td>
@@ -55,20 +55,16 @@
                            
                         </table>
                      </div>
-                     <div class="updateArea">
-                        <div class="input-group">
-                           <input type="text" class="form-control" placeholder="I have a discount coupon">
-                           <a href="#" class="outline-btn">apply coupon</a>
-                        </div>
-                        <a href="#" class="outline-btn update-btn">update cart</a>
-                     </div>
-                     <div class="totalAmountArea">
+                     <div class="totalAmountArea" style="border-top: 1px solid #dee2e6;">
                         <ul class="list-unstyled">
-                           <li><strong>Grand Total</strong> <span class="grandTotal" id="totalAmount">$ {{ total }}</span></li>
+                           {% for cart in cart_items %}
+                           <li>{{ cart.package.title }} <span class="grandTotal" id="totalAmount">$ {{ cart.total_price }}</span></li>
+                           {% endfor %}
+                           <li style='border: 1px solid #dee2e6; padding: 15px 5px 15px 0px;'><strong>Общий Итог</strong> <span class="grandTotal" id="totalAmount">$ {{ total }}</span></li>
                         </ul>
                      </div>
                      <div class="checkBtnArea text-right">
-                        <a class="round-btn" href="/">checkout</a>
+                        <a class="round-btn" href="{% url 'booking' %}">checkout</a>
                      </div>
                   </form>
                </div>

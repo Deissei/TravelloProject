@@ -6,6 +6,7 @@ from apps.contacts.models import Contact
 from apps.gallery.models import Gallery
 from apps.homepage.models import SettingMain
 from apps.blogs.models import Blog
+from apps.packages.models import Package
 
 
 def cart_view(request):
@@ -27,3 +28,28 @@ def cart_view(request):
 
     return render(request, 'cart/cart.html', locals())
 
+def add_cart(request, pk):
+    package = Package.objects.get(id=pk)
+    cart = CartItem.objects.create(package=package, user=request.user, quantity=1)
+    return redirect('no_promo_package')
+
+
+def plus_quantity_cart(request, pk):
+    cart = CartItem.objects.get(id=pk)
+    cart.quantity+=1
+    cart.save()
+    return redirect('cart_view')
+
+
+def minus_quantity_cart(request, pk):
+    cart = CartItem.objects.get(id=pk)
+    cart.quantity-=1
+    if cart.quantity > 0:
+        cart.save()
+    return redirect('cart_view')
+
+
+def remove_cart_item(request, pk):
+    cart = CartItem.objects.get(id=pk)
+    cart.delete()
+    return redirect('cart_view')

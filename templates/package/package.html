@@ -94,7 +94,7 @@
                               <span>${{ package.price_per_person }}</span>
                               / per person
                            </h6>
-                           <a href="{{ package.booking_package }}" class="outline-btn outline-btn-white">ЗАБРОНИРОВАТЬ</a>
+                           <a href="{% url 'add_cart_package' package.id %}" class="outline-btn outline-btn-white">Добавить в корзину</a>
                         </div>
                      </article>
                      {% endfor %}
@@ -136,7 +136,7 @@
                            <span>${{ package.price_per_person }}</span>
                            / per person
                         </h6>
-                        <a href="{{ package.booking_package }}" class="outline-btn outline-btn-white">ЗАБРОНИРОВАТЬ</a>
+                        <a href="{% url 'add_cart_package' package.id %}" class="outline-btn outline-btn-white">Добавить в корзину</a>
                      </div>
                   </article>
                      {% endfor %}
